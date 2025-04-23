@@ -7,7 +7,7 @@ def carregar_resumidor():
 
 resumidor = carregar_resumidor()
 
-def resumir_texto(texto, max_length=130, min_length=30):
+def resumir_texto(texto, max_length=300, min_length=100):
     resumo = resumidor(texto, max_length=max_length, min_length=min_length, do_sample=False)
     return resumo[0]['summary_text']
 
