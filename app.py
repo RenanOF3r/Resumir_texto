@@ -3,7 +3,7 @@ from transformers import pipeline
 
 @st.cache_resource
 def carregar_resumidor():
-    return pipeline('summarization', model='facebook/bart-large-cnn')
+    return pipeline('summarization', model='sshleifer/distilbart-cnn-12-6')
 
 resumidor = carregar_resumidor()
 
