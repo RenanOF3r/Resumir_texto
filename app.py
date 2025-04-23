@@ -11,7 +11,7 @@ def resumir_texto(texto, max_length=130, min_length=30):
     resumo = resumidor(texto, max_length=max_length, min_length=min_length, do_sample=False)
     return resumo[0]['summary_text']
 
-st.title("Resumidor de Textos - Amanda")
+st.title("Resumidor de Textos")
 
 texto_entrada = st.text_area("Cole o texto para resumir", height=200)
 
