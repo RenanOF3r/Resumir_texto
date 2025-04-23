@@ -1,43 +1,28 @@
 import streamlit as st
 from transformers import pipeline
 
-# Inicializar pipelines (carregados uma vez)
 @st.cache_resource
-def carregar_modelos():
-    tradutor = pipeline('translation', model='Helsinki-NLP/opus-mt-mul-pt')
-    resumidor = pipeline('summarization', model='facebook/bart-large-cnn')
-    return tradutor, resumidor
+def carregar_resumidor():
+    return pipeline('summarization', model='facebook/bart-large-cnn')
 
-tradutor, resumidor = carregar_modelos()
-
-def traduzir_para_portugues(texto):
-    traducao = tradutor(texto)
-    return traducao[0]['translation_text']
+resumidor = carregar_resumidor()
 
 def resumir_texto(texto, max_length=130, min_length=30):
     resumo = resumidor(texto, max_length=max_length, min_length=min_length, do_sample=False)
     return resumo[0]['summary_text']
 
-def traduzir_e_resumir(texto_original):
-    texto_em_portugues = traduzir_para_portugues(texto_original)
-    resumo = resumir_texto(texto_em_portugues)
-    return resumo
-
-# Interface Streamlit
 st.title("Resumidor de Textos - Amanda")
 
-st.write("Cole o texto que deseja resumir (em qualquer idioma) e clique em 'Resumir'.")
-
-texto_entrada = st.text_area("Texto original", height=200)
+texto_entrada = st.text_area("Cole o texto para resumir", height=200)
 
 if st.button("Resumir"):
     if not texto_entrada.strip():
         st.warning("Por favor, insira um texto para resumir.")
     else:
-        with st.spinner("Processando..."):
+        with st.spinner("Resumindo..."):
             try:
-                resumo_gerado = traduzir_e_resumir(texto_entrada)
+                resumo = resumir_texto(texto_entrada)
                 st.subheader("Resumo gerado:")
-                st.write(resumo_gerado)
+                st.write(resumo)
             except Exception as e:
-                st.error(f"Erro ao processar o texto: {e}")
+                st.error(f"Erro ao resumir o texto: {e}")
