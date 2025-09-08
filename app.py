@@ -99,3 +99,25 @@ class SummarizerWrapper:
             return [{"summary_text": summarize_one(t)} for t in inputs]
         else:
             return [{"summary_text": summarize_one(inputs)}]
+
+
+resumidor = carregar_resumidor()
+st.title("Resumir texto")
+texto = st.text_area("Texto de entrada")
+max_length = st.slider(
+    "max_length – define o número máximo de tokens (aproximadamente palavras) que a saída pode ter",
+    min_value=10,
+    max_value=500,
+    value=180,
+)
+min_length = st.slider(
+    "min_length – define o número mínimo de tokens que o resumo deve conter",
+    min_value=5,
+    max_value=max_length,
+    value=60,
+)
+
+if st.button("Resumir"):
+    if texto:
+        resultado = resumidor(texto, max_length=max_length, min_length=min_length)
+        st.text_area("Resumo", resultado[0]["summary_text"], height=200)
