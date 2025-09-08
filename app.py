@@ -16,6 +16,11 @@ class SummarizerWrapper:
         return getattr(self.pipe, name)
 
     def __call__(self, inputs, max_length=180, min_length=60, do_sample=False, **kwargs):
+        if max_length < min_length:
+            raise ValueError(
+                f"max_length ({max_length}) must be greater than or equal to min_length ({min_length})"
+            )
+
         tok = self.tokenizer
 
         def clamp_model_max_length():
