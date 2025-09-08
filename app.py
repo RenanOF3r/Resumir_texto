@@ -43,6 +43,7 @@ class SummarizerWrapper:
                     do_sample=do_sample,
                     truncation=True,
                     clean_up_tokenization_spaces=True,
+                    **kwargs,
                 )
                 return out[0]["summary_text"]
 
@@ -69,6 +70,7 @@ class SummarizerWrapper:
                     do_sample=do_sample,
                     truncation=True,
                     clean_up_tokenization_spaces=True,
+                    **kwargs,
                 )
                 partials.append(out[0]["summary_text"])
 
@@ -82,6 +84,7 @@ class SummarizerWrapper:
                     do_sample=do_sample,
                     truncation=True,
                     clean_up_tokenization_spaces=True,
+                    **kwargs,
                 )
                 return out[0]["summary_text"]
             return combined
