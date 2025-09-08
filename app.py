@@ -1,5 +1,5 @@
 import streamlit as st
-from transformers import pipeline
+from transformers.pipelines import pipeline
 
 @st.cache_resource(show_spinner="Carregando modelo…")
 def carregar_resumidor():
