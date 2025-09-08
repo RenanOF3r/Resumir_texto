@@ -104,6 +104,7 @@ class SummarizerWrapper:
 resumidor = carregar_resumidor()
 st.title("Resumir texto")
 texto = st.text_area("Texto de entrada")
+
 max_length = st.slider(
     "max_length – define o número máximo de tokens (aproximadamente palavras) que a saída pode ter",
     min_value=10,
@@ -116,6 +117,7 @@ min_length = st.slider(
     max_value=max_length,
     value=60,
 )
+ main
 
 if st.button("Resumir"):
     if texto:
